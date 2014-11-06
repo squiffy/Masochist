@@ -14,6 +14,7 @@
 		18A0DAC61A0C28F3008A040D /* masochist.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = masochist.kext; sourceTree = BUILT_PRODUCTS_DIR; };
 		18A0DACA1A0C28F3008A040D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18A0DACB1A0C28F3008A040D /* masochist.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = masochist.c; sourceTree = "<group>"; };
+		18A0DAD21A0C29FA008A040D /* masochist.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = masochist.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +48,7 @@
 			isa = PBXGroup;
 			children = (
 				18A0DACB1A0C28F3008A040D /* masochist.c */,
+				18A0DAD21A0C29FA008A040D /* masochist.h */,
 				18A0DAC91A0C28F3008A040D /* Supporting Files */,
 			);
 			path = masochist;
