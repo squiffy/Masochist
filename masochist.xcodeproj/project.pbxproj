@@ -1,0 +1,272 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		18A0DACC1A0C28F3008A040D /* masochist.c in Sources */ = {isa = PBXBuildFile; fileRef = 18A0DACB1A0C28F3008A040D /* masochist.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		18A0DAC61A0C28F3008A040D /* masochist.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = masochist.kext; sourceTree = BUILT_PRODUCTS_DIR; };
+		18A0DACA1A0C28F3008A040D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18A0DACB1A0C28F3008A040D /* masochist.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = masochist.c; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		18A0DAC21A0C28F3008A040D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		18A0DABC1A0C28F3008A040D = {
+			isa = PBXGroup;
+			children = (
+				18A0DAC81A0C28F3008A040D /* masochist */,
+				18A0DAC71A0C28F3008A040D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		18A0DAC71A0C28F3008A040D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				18A0DAC61A0C28F3008A040D /* masochist.kext */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		18A0DAC81A0C28F3008A040D /* masochist */ = {
+			isa = PBXGroup;
+			children = (
+				18A0DACB1A0C28F3008A040D /* masochist.c */,
+				18A0DAC91A0C28F3008A040D /* Supporting Files */,
+			);
+			path = masochist;
+			sourceTree = "<group>";
+		};
+		18A0DAC91A0C28F3008A040D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				18A0DACA1A0C28F3008A040D /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		18A0DAC31A0C28F3008A040D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		18A0DAC51A0C28F3008A040D /* masochist */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 18A0DACF1A0C28F3008A040D /* Build configuration list for PBXNativeTarget "masochist" */;
+			buildPhases = (
+				18A0DAC11A0C28F3008A040D /* Sources */,
+				18A0DAC21A0C28F3008A040D /* Frameworks */,
+				18A0DAC31A0C28F3008A040D /* Headers */,
+				18A0DAC41A0C28F3008A040D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = masochist;
+			productName = masochist;
+			productReference = 18A0DAC61A0C28F3008A040D /* masochist.kext */;
+			productType = "com.apple.product-type.kernel-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		18A0DABD1A0C28F3008A040D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = squiffypwn;
+				TargetAttributes = {
+					18A0DAC51A0C28F3008A040D = {
+						CreatedOnToolsVersion = 6.0.1;
+					};
+				};
+			};
+			buildConfigurationList = 18A0DAC01A0C28F3008A040D /* Build configuration list for PBXProject "masochist" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 18A0DABC1A0C28F3008A040D;
+			productRefGroup = 18A0DAC71A0C28F3008A040D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				18A0DAC51A0C28F3008A040D /* masochist */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		18A0DAC41A0C28F3008A040D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		18A0DAC11A0C28F3008A040D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18A0DACC1A0C28F3008A040D /* masochist.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		18A0DACD1A0C28F3008A040D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		18A0DACE1A0C28F3008A040D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		18A0DAD01A0C28F3008A040D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Developer ID";
+				INFOPLIST_FILE = masochist/Info.plist;
+				MODULE_NAME = com.squiffypwn.masochist;
+				MODULE_START = masochist_start;
+				MODULE_STOP = masochist_stop;
+				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = kext;
+			};
+			name = Debug;
+		};
+		18A0DAD11A0C28F3008A040D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Developer ID";
+				INFOPLIST_FILE = masochist/Info.plist;
+				MODULE_NAME = com.squiffypwn.masochist;
+				MODULE_START = masochist_start;
+				MODULE_STOP = masochist_stop;
+				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = kext;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		18A0DAC01A0C28F3008A040D /* Build configuration list for PBXProject "masochist" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18A0DACD1A0C28F3008A040D /* Debug */,
+				18A0DACE1A0C28F3008A040D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		18A0DACF1A0C28F3008A040D /* Build configuration list for PBXNativeTarget "masochist" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18A0DAD01A0C28F3008A040D /* Debug */,
+				18A0DAD11A0C28F3008A040D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 18A0DABD1A0C28F3008A040D /* Project object */;
+}
