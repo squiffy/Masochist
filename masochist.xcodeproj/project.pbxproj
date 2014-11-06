@@ -221,7 +221,7 @@
 		18A0DAD01A0C28F3008A040D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Developer ID";
+				CODE_SIGN_IDENTITY = "";
 				INFOPLIST_FILE = masochist/Info.plist;
 				MODULE_NAME = com.squiffypwn.masochist;
 				MODULE_START = masochist_start;
@@ -235,7 +235,7 @@
 		18A0DAD11A0C28F3008A040D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Developer ID";
+				CODE_SIGN_IDENTITY = "";
 				INFOPLIST_FILE = masochist/Info.plist;
 				MODULE_NAME = com.squiffypwn.masochist;
 				MODULE_START = masochist_start;
