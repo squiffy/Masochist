@@ -90,7 +90,7 @@ find_symbol(const char *symbol, struct mach_header_64 *header) {
         if(!strcmp(symbol, (char *)(nlist->n_un.n_strx + stringTable))) {
             
             /* Found it! Return a pointer to the symbol */
-            return (struct proclist *)(nlist->n_value);
+            return (void *)nlist->n_value;
             
         }
         
@@ -110,8 +110,8 @@ masochist_start(kmod_info_t * ki, void *d) {
     struct mach_header_64 *kernel_header = (struct mach_header_64 *)KERNEL_BASE;
     
     /* Lets find some symbols */
-    struct proclist *allproc = find_symbol("_allproc", kernel_header);
-    printf("_allproc = 0x%p\n", allproc);
+    struct proclist *allproc = find_symbol("_nsysent", kernel_header);
+    printf("_nsysent = 0x%p\n", allproc);
     
     return KERN_SUCCESS;
 }
