@@ -17,7 +17,8 @@
 kern_return_t masochist_start(kmod_info_t * ki, void *d);
 kern_return_t masochist_stop(kmod_info_t *ki, void *d);
 
-#define KERNEL_BASE (0xffffff8000200000 + 0x8000000) // use kas_info
+#define SLIDE 0x0
+#define KERNEL_BASE (0xffffff8000200000 + SLIDE) /* use slide.c */
 
 void *
 find_symbol(const char *symbol, struct mach_header_64 *header) {
@@ -109,9 +110,11 @@ masochist_start(kmod_info_t * ki, void *d) {
     /* Get the mach header of the kernel */
     struct mach_header_64 *kernel_header = (struct mach_header_64 *)KERNEL_BASE;
     
-    /* Lets find some symbols */
-    struct proclist *allproc = find_symbol("_nsysent", kernel_header);
-    printf("_nsysent = 0x%p\n", allproc);
+    /*
+     
+     Do things here
+     
+     */
     
     return KERN_SUCCESS;
 }
