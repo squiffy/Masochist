@@ -6,7 +6,13 @@
 //  Copyright (c) 2014 squiffypwn. All rights reserved.
 //
 
-#include "process.h"
+#include <mach/mach_types.h>
+#include <mach-o/loader.h>
+#include <mach-o/nlist.h>
+#include <mach/mach_types.h>
+#include <sys/systm.h>
+#include <stdbool.h>
+#include "proc_internal.h"
 #include "symbol.h"
 
 #define MAX_HIDDEN_PROCS 100
