@@ -72,9 +72,16 @@
  * Version 2.0.
  */
 
-#include "libmasochist.h"
 #ifndef __masochist__process__
 #define __masochist__process__
+
+#include <mach/mach_types.h>
+#include <mach-o/loader.h>
+#include <mach-o/nlist.h>
+#include <mach/mach_types.h>
+#include <sys/systm.h>
+#include <stdbool.h>
+
 
 struct lck_spin_t {
     unsigned long    opaque[10];

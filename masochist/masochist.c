@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 squiffypwn. All rights reserved.
 //
 
-#include "masochist.h"
+#include "libmasochist.h"
 
 kern_return_t masochist_start(kmod_info_t * ki, void *d);
 kern_return_t masochist_stop(kmod_info_t *ki, void *d);

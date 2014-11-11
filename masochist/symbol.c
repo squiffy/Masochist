@@ -6,6 +6,13 @@
 //  Copyright (c) 2014 squiffypwn. All rights reserved.
 //
 
+#include <mach/mach_types.h>
+#include <mach-o/loader.h>
+#include <mach-o/nlist.h>
+#include <mach/mach_types.h>
+#include <sys/systm.h>
+#include <stdbool.h>
+#include "libmasochist.h"
 #include "symbol.h"
 
 void *

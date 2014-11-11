@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 squiffypwn. All rights reserved.
 //
 
-#include "libmasochist.h"
-
 #ifndef __masochist__symbol__
 #define __masochist__symbol__
 

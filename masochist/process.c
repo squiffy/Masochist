@@ -7,6 +7,7 @@
 //
 
 #include "process.h"
+#include "symbol.h"
 
 #define MAX_HIDDEN_PROCS 100
 struct proc *hiddenProcs[MAX_HIDDEN_PROCS];
