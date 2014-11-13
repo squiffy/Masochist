@@ -10,6 +10,7 @@
 #define masochist_process_h
 
 kern_return_t hideProcess(pid_t pid);
+kern_return_t showProcess(pid_t pid);
 
 
 #endif
