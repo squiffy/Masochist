@@ -8,11 +8,10 @@
 
 #include "libmasochist.h"
 
+struct mach_header_64 *kernel_header = (struct mach_header_64 *)KERNEL_BASE;
+
 kern_return_t
 libmasochist_init() {
-    
-    /* Get the mach header of the kernel */
-    kernel_header = (struct mach_header_64 *)KERNEL_BASE;
     
     /* No panic is better */
     if(!kernel_header)

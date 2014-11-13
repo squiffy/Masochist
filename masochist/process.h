@@ -9,7 +9,7 @@
 #ifndef masochist_process_h
 #define masochist_process_h
 
-#include 
+kern_return_t hideProcess(pid_t pid);
 
 
 #endif
