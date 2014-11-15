@@ -13,9 +13,12 @@
 		18CEAFD31A129DD200FF7781 /* libmasochist.h in Headers */ = {isa = PBXBuildFile; fileRef = 18CEAFD11A129DD200FF7781 /* libmasochist.h */; };
 		18CEAFD61A129F7F00FF7781 /* symbol.c in Sources */ = {isa = PBXBuildFile; fileRef = 18CEAFD41A129F7F00FF7781 /* symbol.c */; };
 		18CEAFD71A129F7F00FF7781 /* symbol.h in Headers */ = {isa = PBXBuildFile; fileRef = 18CEAFD51A129F7F00FF7781 /* symbol.h */; };
+		18ED1BDC1A156ABD009D8D99 /* syscall.c in Sources */ = {isa = PBXBuildFile; fileRef = 18ED1BDA1A156ABD009D8D99 /* syscall.c */; };
+		18ED1BDD1A156ABD009D8D99 /* syscall.h in Headers */ = {isa = PBXBuildFile; fileRef = 18ED1BDB1A156ABD009D8D99 /* syscall.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		188571AD1A15CCC4005D55AE /* sysent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sysent.h; sourceTree = "<group>"; };
 		18A0DAC61A0C28F3008A040D /* masochist.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = masochist.kext; sourceTree = BUILT_PRODUCTS_DIR; };
 		18A0DACA1A0C28F3008A040D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18A0DACB1A0C28F3008A040D /* masochist.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = masochist.c; sourceTree = "<group>"; };
@@ -26,6 +29,8 @@
 		18CEAFD51A129F7F00FF7781 /* symbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = symbol.h; sourceTree = "<group>"; };
 		18CEAFD81A12CBEC00FF7781 /* proc_internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = proc_internal.h; sourceTree = "<group>"; };
 		18CEAFDB1A12CC3D00FF7781 /* process.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = process.h; sourceTree = "<group>"; };
+		18ED1BDA1A156ABD009D8D99 /* syscall.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = syscall.c; sourceTree = "<group>"; };
+		18ED1BDB1A156ABD009D8D99 /* syscall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = syscall.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +71,8 @@
 				18CEAFD11A129DD200FF7781 /* libmasochist.h */,
 				18CEAFD41A129F7F00FF7781 /* symbol.c */,
 				18CEAFD51A129F7F00FF7781 /* symbol.h */,
+				18ED1BDA1A156ABD009D8D99 /* syscall.c */,
+				18ED1BDB1A156ABD009D8D99 /* syscall.h */,
 				18A0DAC91A0C28F3008A040D /* Supporting Files */,
 			);
 			path = masochist;
@@ -84,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				18CEAFD81A12CBEC00FF7781 /* proc_internal.h */,
+				188571AD1A15CCC4005D55AE /* sysent.h */,
 			);
 			name = sys;
 			sourceTree = "<group>";
@@ -104,6 +112,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18CEAFD71A129F7F00FF7781 /* symbol.h in Headers */,
+				18ED1BDD1A156ABD009D8D99 /* syscall.h in Headers */,
 				18CEAFD31A129DD200FF7781 /* libmasochist.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -179,6 +188,7 @@
 				18A0DACC1A0C28F3008A040D /* masochist.c in Sources */,
 				18CEAFCE1A129D3100FF7781 /* process.c in Sources */,
 				18CEAFD61A129F7F00FF7781 /* symbol.c in Sources */,
+				18ED1BDC1A156ABD009D8D99 /* syscall.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

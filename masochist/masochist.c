@@ -7,7 +7,6 @@
 //
 
 #include "libmasochist.h"
-#include "process.h"
 
 kern_return_t masochist_start(kmod_info_t * ki, void *d);
 kern_return_t masochist_stop(kmod_info_t *ki, void *d);
@@ -23,7 +22,6 @@ masochist_start(kmod_info_t * ki, void *d) {
      Do things here
      
      */
-    
     
     return KERN_SUCCESS;
 }
