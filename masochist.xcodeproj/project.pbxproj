@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		188571B01A1873BD005D55AE /* cpu.c in Sources */ = {isa = PBXBuildFile; fileRef = 188571AE1A1873BD005D55AE /* cpu.c */; };
+		188571B11A1873BD005D55AE /* cpu.h in Headers */ = {isa = PBXBuildFile; fileRef = 188571AF1A1873BD005D55AE /* cpu.h */; };
 		18A0DACC1A0C28F3008A040D /* masochist.c in Sources */ = {isa = PBXBuildFile; fileRef = 18A0DACB1A0C28F3008A040D /* masochist.c */; };
 		18CEAFCE1A129D3100FF7781 /* process.c in Sources */ = {isa = PBXBuildFile; fileRef = 18CEAFCC1A129D3100FF7781 /* process.c */; };
 		18CEAFD21A129DD200FF7781 /* libmasochist.c in Sources */ = {isa = PBXBuildFile; fileRef = 18CEAFD01A129DD200FF7781 /* libmasochist.c */; };
@@ -19,6 +21,8 @@
 
 /* Begin PBXFileReference section */
 		188571AD1A15CCC4005D55AE /* sysent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sysent.h; sourceTree = "<group>"; };
+		188571AE1A1873BD005D55AE /* cpu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cpu.c; sourceTree = "<group>"; };
+		188571AF1A1873BD005D55AE /* cpu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpu.h; sourceTree = "<group>"; };
 		18A0DAC61A0C28F3008A040D /* masochist.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = masochist.kext; sourceTree = BUILT_PRODUCTS_DIR; };
 		18A0DACA1A0C28F3008A040D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18A0DACB1A0C28F3008A040D /* masochist.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = masochist.c; sourceTree = "<group>"; };
@@ -67,6 +71,8 @@
 				18A0DACB1A0C28F3008A040D /* masochist.c */,
 				18CEAFCC1A129D3100FF7781 /* process.c */,
 				18CEAFDB1A12CC3D00FF7781 /* process.h */,
+				188571AE1A1873BD005D55AE /* cpu.c */,
+				188571AF1A1873BD005D55AE /* cpu.h */,
 				18CEAFD01A129DD200FF7781 /* libmasochist.c */,
 				18CEAFD11A129DD200FF7781 /* libmasochist.h */,
 				18CEAFD41A129F7F00FF7781 /* symbol.c */,
@@ -114,6 +120,7 @@
 				18CEAFD71A129F7F00FF7781 /* symbol.h in Headers */,
 				18ED1BDD1A156ABD009D8D99 /* syscall.h in Headers */,
 				18CEAFD31A129DD200FF7781 /* libmasochist.h in Headers */,
+				188571B11A1873BD005D55AE /* cpu.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,6 +191,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				188571B01A1873BD005D55AE /* cpu.c in Sources */,
 				18CEAFD21A129DD200FF7781 /* libmasochist.c in Sources */,
 				18A0DACC1A0C28F3008A040D /* masochist.c in Sources */,
 				18CEAFCE1A129D3100FF7781 /* process.c in Sources */,

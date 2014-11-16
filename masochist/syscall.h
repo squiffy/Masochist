@@ -9,6 +9,6 @@
 #ifndef __masochist__syscall__
 #define __masochist__syscall__
 
-kern_return_t resolve_sysent();
+struct sysent *resolve_sysent();
 
 #endif /* defined(__masochist__syscall__) */

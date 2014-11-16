@@ -16,7 +16,7 @@
 #include "symbol.h"
 #include "syscall.h"
 
-kern_return_t
+struct sysent *
 resolve_sysent() {
     
     /* Gonna have to brute force this... */
@@ -58,6 +58,5 @@ resolve_sysent() {
         startAddress++;
         
     }
-    printf("Found system call table @ %p\n", sysent);
-    return KERN_SUCCESS;
+    return sysent;
 }

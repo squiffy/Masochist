@@ -38,18 +38,6 @@
 typedef	int32_t	sy_call_t(struct proc *, void *, int *);
 typedef	void	sy_munge_t(void *);
 
-
-/*
- 
- 0x80c000020000006dffffff800ba65a28ffffff800bafe238
- 
- 0x80c000020000006d
- 0xffffff800ba65a28
- 0xffffff80
- 0x0baf
- 0x
- 
- */
 struct sysent {		/* system call table */
     sy_call_t	*sy_call;	/* implementing function */
     sy_munge_t	*sy_arg_munge32; /* system call arguments munger for 32-bit process */
