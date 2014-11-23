@@ -24,7 +24,7 @@ find_symbol(const char *symbol) {
     
     /* Lets get the first load command */
     
-    lc = (struct load_command *)(sizeof(struct mach_header_64) + KERNEL_BASE);
+    lc = (struct load_command *)(sizeof(struct mach_header_64) + kernel_base);
     
     /* iterate through all of the load commands until we find __LINKEDIT */
     int i;
@@ -63,7 +63,7 @@ find_symbol(const char *symbol) {
         if(lc->cmd == LC_SYMTAB) {
             
             lc_symtab = (struct symtab_command *)lc;
-            lc = (struct load_command *)(sizeof(struct mach_header_64) + KERNEL_BASE);
+            lc = (struct load_command *)(sizeof(struct mach_header_64) + kernel_base);
             break;
             
         }

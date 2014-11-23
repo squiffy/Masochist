@@ -38,7 +38,7 @@ resolve_sysent() {
     struct segment_command_64 *data = NULL;
     int i;
 
-    struct load_command *lc = (struct load_command *)(sizeof(struct mach_header_64) + KERNEL_BASE);
+    struct load_command *lc = (struct load_command *)(sizeof(struct mach_header_64) + kernel_base);
     for(i = 0; i < kernel_header->ncmds; i++) {
         struct segment_command_64 *seg;
         if(lc->cmd == LC_SEGMENT_64) {

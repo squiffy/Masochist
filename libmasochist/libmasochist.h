@@ -17,7 +17,7 @@
 #include <stdbool.h>
 
 extern struct mach_header_64 *kernel_header;
-uint64_t slide = 0x0;
+extern uint64_t kernel_base;
 
 kern_return_t libmasochist_init();
 

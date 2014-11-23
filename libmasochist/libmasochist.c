@@ -8,13 +8,15 @@
 
 #include "libmasochist.h"
 
-struct mach_header_64 *kernel_base = NULL
+struct mach_header_64 *kernel_header = NULL;
+uint64_t kernel_base = 0x0;
+
 extern LIST_HEAD(hiddenProcsHead, hiddenProc) hidden_procs_head;
 
 kern_return_t
-set_kernel_slide(uint_64 slide) {
+set_kernel_slide(uint64_t slide) {
 
-    slide = 0xffffff8000200000 + slide;
+    kernel_base = 0xffffff8000200000 + slide;
 
     return KERN_SUCCESS;
 }
@@ -23,8 +25,6 @@ kern_return_t
 libmasochist_init(uint64_t slide) {
 
     set_kernel_slide(slide);
-
-    mach_header_64 kernel_base = (struct mach_header_64 *)slide;
 
     /* No panic is better */
     if(!kernel_header)
