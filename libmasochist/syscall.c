@@ -11,10 +11,24 @@
 #include <mach-o/loader.h>
 #include <mach/mach_types.h>
 #include <sys/syscall.h>
+#include "sysproto.h"
 #include "libmasochist.h"
-#include "sysent.h"
 #include "symbol.h"
 #include "syscall.h"
+#include "cpu.h"
+
+typedef	int32_t	sy_call_t(struct proc *, void *, int *);
+typedef	void	sy_munge_t(void *);
+
+struct sysent {		/* system call table */
+    sy_call_t	*sy_call;	/* implementing function */
+    sy_munge_t	*sy_arg_munge32; /* system call arguments munger for 32-bit process */
+    int32_t		sy_return_type; /* system call return types */
+    int16_t		sy_narg;	/* number of args */
+    uint16_t	sy_arg_bytes;	/* Total size of arguments in bytes for
+                                 * 32-bit system calls
+                                 */
+};
 
 struct sysent *
 resolve_sysent() {
@@ -59,4 +73,25 @@ resolve_sysent() {
         
     }
     return sysent;
+}
+
+int mkdir_hook(struct proc *process, struct mkdir_args *args, int *unused) {
+    
+    printf("Directory: %s\n", (char *)args->path);
+    
+    return 0;
+    
+}
+
+kern_return_t
+test_hook() {
+    
+    struct sysent *sysent = resolve_sysent();
+    
+    disable_write_protection();
+    sysent[SYS_mkdir].sy_call = (sy_call_t *)mkdir_hook;
+    enable_write_protection();
+    
+    return KERN_SUCCESS;
+    
 }

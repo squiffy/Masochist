@@ -10,5 +10,5 @@
 #define __masochist__syscall__
 
 struct sysent *resolve_sysent();
-
+kern_return_t test_hook();
 #endif /* defined(__masochist__syscall__) */
