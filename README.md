@@ -8,18 +8,16 @@ Masochist is a framework for creating XNU based rootkits. Very useful in OS X an
   - IP filters
   - VFS prodding
   - General kernel hooking
- 
-Masochist is currently compatible with 64-bit OS X machines (I think). I've only tested this on 10.10. If anyone is brave enough to try it on their system, I would be very grateful. 
- 
+
+Masochist is currently compatible with 64-bit OS X machines (I think). I've only tested this on 10.10. If anyone is brave enough to try it on their system, I would be very grateful.
+
 ### Version
 0.1
 
 
 ### Usage
 
-Currently, Masochist is a kernel extention itself. Eventually,  it will be a standalone library. However, the current state provides a nice test bed for the early stages of development.
-
-Use Xcode to compile the template. Change target settings if needed.
+To use this code, please import these files into your kernel extension project in Xcode. Then, import the headers that you need to use. Do not forget to call libmasochist_init() and update SLIDE.
 
 Once built, run these commands to load the kernel extension
 
