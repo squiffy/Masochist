@@ -16,10 +16,8 @@
 #include <sys/systm.h>
 #include <stdbool.h>
 
-#define SLIDE 0x0
-#define KERNEL_BASE (0xffffff8000200000 + SLIDE) /* use slide.c */
-
 extern struct mach_header_64 *kernel_header;
+uint64_t slide = 0x0;
 
 kern_return_t libmasochist_init();
 
