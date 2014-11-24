@@ -17,20 +17,9 @@ Masochist is currently compatible with 64-bit OS X machines (I think). I've only
 
 ### Usage
 
-To use this code, please import these files into your kernel extension project in Xcode. Then, import the headers that you need to use. Do not forget to call libmasochist_init() and update SLIDE.
+To use this code, please import these files into your kernel extension project in Xcode. Then, import the headers that you need to use.
 
-Once built, run these commands to load the kernel extension
-
-```sh
-$ sudo chown -R root:wheel masochist.kext
-$ sudo kextload masochist.kext
-```
-
-For OS X 10.10, you need to add a boot argument if you don't sign your kext.
-
-```sh
-$ sudo nvram boot-args='kext-dev-mode=1'
-```
+I recommend [this repo](https://github.com/squiffy/Masochist-Template) as a starting point for your project. It has been configured and is ready to be built inside Xcode.
 
 
 ### Disclaimer
