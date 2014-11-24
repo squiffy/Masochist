@@ -19,6 +19,6 @@
 extern struct mach_header_64 *kernel_header;
 extern uint64_t kernel_base;
 
-kern_return_t libmasochist_init();
+kern_return_t libmasochist_init(uint64_t slide);
 
 #endif /* defined(__masochist__libmasochist__) */
