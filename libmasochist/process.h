@@ -11,7 +11,7 @@
 
 kern_return_t hide_process(pid_t pid);
 kern_return_t show_process(pid_t pid);
-kern_return_t change_process_ownership(uid_t realUid, uid_t uid, gid_t gid);
+kern_return_t change_process_ownership(pid_t pid, uid_t uid, gid_t gid);
 
 
 #endif
