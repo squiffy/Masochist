@@ -17,7 +17,8 @@ kern_return_t
 set_kernel_slide(uint64_t slide) {
 
     kernel_base = 0xffffff8000200000 + slide;
-
+    kernel_header = (struct mach_header_64 *)kernel_base;
+    
     return KERN_SUCCESS;
 }
 
