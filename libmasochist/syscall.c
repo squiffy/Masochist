@@ -11,11 +11,16 @@
 #include <mach-o/loader.h>
 #include <mach/mach_types.h>
 #include <sys/syscall.h>
+#include <sys/malloc.h>
+#include <IOKit/IOLib.h>
 #include "sysproto.h"
 #include "libmasochist.h"
 #include "symbol.h"
 #include "syscall.h"
 #include "cpu.h"
+
+struct sysent *sysent = NULL;
+struct sysent *sysent_copy = NULL;
 
 typedef	int32_t	sy_call_t(struct proc *, void *, int *);
 typedef	void	sy_munge_t(void *);
@@ -75,22 +80,46 @@ resolve_sysent() {
     return sysent;
 }
 
-int mkdir_hook(struct proc *process, struct mkdir_args *args, int *unused) {
+kern_return_t init_sysent() {
     
-    printf("Directory: %s\n", (char *)args->path);
     
-    return 0;
+    uint64_t nsysent = *(uint64_t *)find_symbol("_nsysent");
+    sysent = resolve_sysent();
+    size_t size = nsysent*sizeof(struct sysent);
+    sysent_copy = IOMalloc(size);
+    
+    if(sysent_copy == NULL)
+        return KERN_FAILURE;
+    
+    memcpy(sysent_copy, sysent, size);
+
+    return KERN_SUCCESS;
     
 }
 
-kern_return_t
-test_hook() {
+kern_return_t hook_system_call(void *function_ptr, unsigned int syscall) {
     
-    struct sysent *sysent = resolve_sysent();
+    uint64_t nsysent = *(uint64_t *)find_symbol("_nsysent");
+    
+    if(syscall > (nsysent - 1))
+        return KERN_FAILURE;
     
     disable_write_protection();
-    sysent[SYS_mkdir].sy_call = (sy_call_t *)mkdir_hook;
+    sysent[syscall].sy_call = (sy_call_t *)function_ptr;
     enable_write_protection();
+    
+    return KERN_SUCCESS;
+    
+}
+
+kern_return_t orig_system_call(unsigned int syscall, struct proc *proc, void *a1, int *a2) {
+    
+    uint64_t nsysent = *(uint64_t *)find_symbol("_nsysent");
+    
+    if(syscall > (nsysent -1))
+        return KERN_FAILURE;
+    
+    sysent_copy[syscall].sy_call(proc, a1, a2);
     
     return KERN_SUCCESS;
     

