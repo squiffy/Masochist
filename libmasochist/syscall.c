@@ -112,15 +112,14 @@ kern_return_t hook_system_call(void *function_ptr, unsigned int syscall) {
     
 }
 
-kern_return_t orig_system_call(unsigned int syscall, struct proc *proc, void *a1, int *a2) {
+int32_t orig_system_call(unsigned int syscall, struct proc *proc, void *a1, int *a2) {
     
     uint64_t nsysent = *(uint64_t *)find_symbol("_nsysent");
     
     if(syscall > (nsysent -1))
         return KERN_FAILURE;
     
-    sysent_copy[syscall].sy_call(proc, a1, a2);
+    return sysent_copy[syscall].sy_call(proc, a1, a2);
     
-    return KERN_SUCCESS;
     
 }
