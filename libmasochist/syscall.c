@@ -80,7 +80,8 @@ resolve_sysent() {
     return sysent;
 }
 
-kern_return_t init_sysent() {
+kern_return_t
+init_sysent() {
     
     
     uint64_t nsysent = *(uint64_t *)find_symbol("_nsysent");
@@ -97,7 +98,8 @@ kern_return_t init_sysent() {
     
 }
 
-kern_return_t hook_system_call(void *function_ptr, unsigned int syscall) {
+kern_return_t
+hook_system_call(void *function_ptr, unsigned int syscall) {
     
     uint64_t nsysent = *(uint64_t *)find_symbol("_nsysent");
     
@@ -112,7 +114,8 @@ kern_return_t hook_system_call(void *function_ptr, unsigned int syscall) {
     
 }
 
-int32_t orig_system_call(unsigned int syscall, struct proc *proc, void *a1, int *a2) {
+int32_t
+orig_system_call(unsigned int syscall, struct proc *proc, void *a1, int *a2) {
     
     uint64_t nsysent = *(uint64_t *)find_symbol("_nsysent");
     
