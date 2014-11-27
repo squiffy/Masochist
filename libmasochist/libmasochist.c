@@ -7,6 +7,7 @@
 //
 
 #include "libmasochist.h"
+#include "syscall.h"
 
 struct mach_header_64 *kernel_header = NULL;
 uint64_t kernel_base = 0x0;
@@ -30,6 +31,9 @@ libmasochist_init(uint64_t slide) {
     /* No panic is better */
     if(!kernel_header)
         return KERN_FAILURE;
+
+    /* init sysent stuff */
+    init_sysent();
 
     /* init the hidden procs list */
     LIST_INIT(&hidden_procs_head);
