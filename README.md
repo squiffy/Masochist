@@ -1,13 +1,10 @@
 # Masochist
 
-Masochist is a framework for creating XNU based rootkits. Very useful in OS X and iOS security research. Right now, it isn't much, but I have many plans for this project. These features include:
+Masochist is a framework for creating XNU based rootkits. Very useful in OS X and iOS security research. It can do cool things like:
 
   - Public symbol resoluton
   - Process manipulation
   - System call hijacking
-  - IP filters
-  - VFS prodding
-  - General kernel hooking
 
 Masochist is currently compatible with 64-bit OS X machines (I think). I've only tested this on 10.10. If anyone is brave enough to try it on their system, I would be very grateful.
 
