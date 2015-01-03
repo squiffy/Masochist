@@ -18,6 +18,8 @@ To use this code, please import these files into your kernel extension project i
 
 I recommend [this repo](https://github.com/squiffy/Masochist-Template) as a starting point for your project. It has been configured and is ready to be built inside Xcode.
 
+The API docs can be found on the Wiki page.
+
 
 ### Disclaimer
 
